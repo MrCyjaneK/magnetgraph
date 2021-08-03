@@ -5,11 +5,10 @@ After=network.target
 ExecStart=/bin/magnetgraph
 # Make sure the config directory is readable by the service user
 PermissionsStartOnly=true
-ExecStartPre=/bin/chgrp magnetgraph /etc/magnetgraph
-# Process management
+#ExecStartPre=/bin/chgrp magnetgraph /etc/magnetgraph
+#Process management
 ####################
-Type=forking
-PIDFile=/run/magnetgraph/magnetgraph.pid
+Type=simple
 Restart=on-failure
 # Directory creation and permissions
 ####################################
@@ -19,6 +18,7 @@ Group=magnetgraph
 RuntimeDirectory=magnetgraph
 RuntimeDirectoryMode=0770
 # /var/lib/magnetgraph
+Environment="HOME=/var/lib/magnetgraph"
 StateDirectory=magnetgraph
 StateDirectoryMode=0770
 PrivateTmp=true
