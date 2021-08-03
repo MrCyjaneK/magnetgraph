@@ -1,0 +1,8 @@
+image: mrcyjanek/goprod:latest
+
+script:
+  - goprod -combo="linux/amd64" -package=true -binname="magnetgraph" -version="0.0.0"
+  - goprod -combo="linux/386" -package=true -binname="magnetgraph" -version="0.0.0"
+  - goprod -combo="linux/arm" -package=true -binname="magnetgraph" -version="0.0.0"
+  - goprod -combo="linux/arm64" -package=true -binname="magnetgraph" -version="0.0.0"
+  - cp build/deb/*.deb /apt/

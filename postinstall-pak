@@ -1,0 +1,10 @@
+#!/bin/sh
+adduser \
+    --no-create-home \
+    --disabled-password \
+    --disabled-login \
+    --system \
+    magnetgraph
+addgroup --system magnetgraph
+systemctl daemon-reload
+systemctl enable magnetgraph.service

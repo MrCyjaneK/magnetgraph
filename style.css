@@ -1,0 +1,33 @@
+body { 
+    text-align: left;
+    padding: 25px;
+    margin: auto;
+    max-width: 732px;
+}
+h1 { 
+    font-weight: 700;
+    font-style: normal;
+    font-size: 32px;
+    line-height: 34px;    
+}
+p { 
+    font-family: 'Lucida Grande',Arial,sans-serif;
+    font-weight: 75;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 1.58;
+}
+address {
+    padding-bottom: 7px;
+}
+a {
+    color: #dc8100;
+    text-decoration: none;
+}
+a:hover {
+    color: #333; 
+    text-decoration: none;
+}
+img {
+    width: 100%;
+}
