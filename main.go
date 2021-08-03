@@ -24,7 +24,7 @@ func main() {
 			rw.WriteHeader(200)
 			rw.Write(style)
 		} else {
-			rw.Write(message("Welcome to Magnetgraph!", "<p>Magnetgraph is a simple program that let you create posts that will never get removed, because it is impossible by design. </p><p>Learn more at <a href=\"https://github.com/mrcyjanek/magnetgraph)\" target=\"_blank\">GitHub</a>, or <a href=\"/p/66911b72b19b4d529714ee07d9b72291bf7b04bd/index.md\" target=\"_blank\">open an article</a></p>"))
+			rw.Write(message("Welcome to Magnetgraph!", "<p>Magnetgraph is a simple program that let you create posts that will never get removed, because it is impossible by design. </p><p>Learn more at <a href=\"https://github.com/mrcyjanek/magnetgraph\" target=\"_blank\">GitHub</a>, or <a href=\"/p/66911b72b19b4d529714ee07d9b72291bf7b04bd/index.md\" target=\"_blank\">open an article</a></p>"))
 		}
 	})
 	http.HandleFunc("/captcha/", func(rw http.ResponseWriter, r *http.Request) {
