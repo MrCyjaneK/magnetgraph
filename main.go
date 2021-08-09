@@ -5,10 +5,10 @@ import (
 	"log"
 	"math/rand"
 	"net/http"
-	"strings"
 	"time"
 
 	"github.com/steambap/captcha"
+	"github.com/zserge/lorca"
 )
 
 //go:embed share/style.css
@@ -24,7 +24,23 @@ func main() {
 			rw.WriteHeader(200)
 			rw.Write(style)
 		} else {
-			rw.Write(message("Welcome to Magnetgraph!", "<p>Magnetgraph is a simple program that let you create posts that will never get removed, because it is impossible by design. </p><p>Learn more at <a href=\"https://github.com/mrcyjanek/magnetgraph\" target=\"_blank\">GitHub</a>, or <a href=\"/p/66911b72b19b4d529714ee07d9b72291bf7b04bd/index.md\" target=\"_blank\">open an article</a></p>"))
+			rw.Write(message("Welcome to Magnetgraph!", `
+<script>
+	function openit() {
+		window.location.href = "/p/"+document.getElementById("hash").value
+	}
+</script
+<p>Magnetgraph is a simple program that let you create posts that will never get removed,
+because it is impossible by design.</p>
+
+<input type="text" id="hash" name="hash" placeholder="Article Hash">
+<a onclick=openit>Open</a>
+
+<hr />
+<p>Learn more at <a href="https://github.com/mrcyjanek/magnetgraph" target="_blank">GitHub</a>
+or <a href="/p/66911b72b19b4d529714ee07d9b72291bf7b04bd/index.md">open an article</a></p>
+
+`))
 		}
 	})
 	http.HandleFunc("/captcha/", func(rw http.ResponseWriter, r *http.Request) {
@@ -36,7 +52,18 @@ func main() {
 		data.WriteImage(rw)
 	})
 	http.HandleFunc("/p/", print)
-	go func() { cleanCaptchas() }()
+	go func() {
+		for {
+			cleanCaptchas()
+		}
+	}()
+	go func() {
+		if !capt {
+			ui, _ := lorca.New("", "", 480, 320)
+			ui.Eval(`window.location.href = "http://127.0.0.1:43132"`)
+			<-ui.Done()
+		}
+	}()
 	err := http.ListenAndServe(":43132", nil)
 	if err != nil {
 		log.Fatal(err)
@@ -52,15 +79,8 @@ func cleanCaptchas() {
 			delete(captchas, i)
 			delete(timec, i)
 		}
+
 	}
 	time.Sleep(1 * time.Minute)
-}
 
-func checkCaptcha(id, input string) bool {
-	if strings.EqualFold(captchas[id], input) && id != "" && captchas[id] != "" {
-		delete(captchas, id)
-		delete(timec, id)
-		return true
-	}
-	return false
 }

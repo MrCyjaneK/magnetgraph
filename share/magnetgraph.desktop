@@ -1,0 +1,9 @@
+[Desktop Entry]
+GenericName=Magnetgraph
+Name=Magnetgraph
+Exec=magnetgraph-desktop %U
+Icon=magnetgraph
+Type=Application
+Terminal=false
+Categories=Utility;
+Comment=BitTorrent based blogging network

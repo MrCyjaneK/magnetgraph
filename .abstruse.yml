@@ -1,8 +1,31 @@
-image: mrcyjanek/goprod:latest
-
-script:
-  - goprod -combo="linux/amd64" -package=true -binname="magnetgraph" -version="0.0.0"
-  - goprod -combo="linux/386" -package=true -binname="magnetgraph" -version="0.0.0"
-  - goprod -combo="linux/arm" -package=true -binname="magnetgraph" -version="0.0.0"
-  - goprod -combo="linux/arm64" -package=true -binname="magnetgraph" -version="0.0.0"
-  - cp build/deb/*.deb /apt/
+image: mrcyjanek/goprod:core
+matrix:
+  - image: mrcyjanek/goprod:core-linux
+    script:
+    - goprod -combo="linux/amd64" -tags="captcha" -package=true -binname="magnetgraph" -version="0.0.0"
+    - goprod -combo="linux/386" -tags="captcha" -package=true -binname="magnetgraph" -version="0.0.0"
+    - goprod -combo="linux/arm" -tags="captcha" -package=true -binname="magnetgraph" -version="0.0.0"
+    - goprod -combo="linux/arm64" -tags="captcha" -package=true -binname="magnetgraph" -version="0.0.0"
+    - cp build/deb/*.deb /apt/
+    - cp build/bin/* /archive
+  - image: mrcyjanek/goprod:core-linux
+    script:
+    - goprod -combo="linux/amd64" -package=true -binname="magnetgraph-desktop" -version="0.0.0"
+    - goprod -combo="linux/386" -package=true -binname="magnetgraph-desktop" -version="0.0.0"
+    - goprod -combo="linux/arm" -package=true -binname="magnetgraph-desktop" -version="0.0.0"
+    - goprod -combo="linux/arm64" -package=true -binname="magnetgraph-desktop" -version="0.0.0"
+    - cp build/deb/*.deb /apt/
+    - cp build/bin/* /archive
+  - image: mrcyjanek/goprod:core-windows
+    script:
+    - goprod -combo="windows/amd64" -package=true -binname="magnetgraph-desktop" -version="0.0.0"
+    - goprod -combo="windows/386" -package=true -binname="magnetgraph-desktop" -version="0.0.0"
+    - cp build/bin/*.exe /archive
+  - image: mrcyjanek/goprod:core-android
+    script:
+    - goprod -combo="android/amd64" -apkit=true -binname="magnetgraph" -version="0.0.0" -appurl="http://127.0.0.1:43132/"
+    - goprod -combo="android/386" -apkit=true -binname="magnetgraph" -version="0.0.0" -appurl="http://127.0.0.1:43132/"
+    - goprod -combo="android/arm64" -apkit=true -binname="magnetgraph" -version="0.0.0" -appurl="http://127.0.0.1:43132/"
+    - goprod -combo="android/arm" -apkit=true -binname="magnetgraph" -version="0.0.0" -appurl="http://127.0.0.1:43132/"
+    - goprod -combo="android/all" -apkit=true -binname="magnetgraph" -version="0.0.0" -appurl="http://127.0.0.1:43132/"
+    - cp build/apk/* /archive
