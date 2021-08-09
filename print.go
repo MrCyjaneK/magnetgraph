@@ -13,10 +13,10 @@ import (
 	"github.com/microcosm-cc/bluemonday"
 )
 
-//go:embed template.html
+//go:embed share/template.html
 var template string
 
-//go:embed templatefull.html
+//go:embed share/templatefull.html
 var templatefull string
 
 func print(rw http.ResponseWriter, r *http.Request) {

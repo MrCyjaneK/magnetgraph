@@ -11,7 +11,7 @@ import (
 	"github.com/steambap/captcha"
 )
 
-//go:embed style.css
+//go:embed share/style.css
 var style []byte
 var captchas = make(map[string]string)
 var timec = make(map[string]int)
