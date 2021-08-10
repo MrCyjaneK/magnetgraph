@@ -1,6 +1,8 @@
 image: mrcyjanek/goprod:core-linux
-env: X=X COMBO=linux/amd64;linux/arm64;linux/386;linux/arm
+env: X=X COMBO=linux/amd64;linux/arm64;linux/386;linux/arm BINNAME=magnetgraph
 matrix:
+  - image: mrcyjanek/goprod:core-linux
+    env: X=X COMBO=linux/amd64;linux/arm64;linux/386;linux/arm BINNAME=magnetgraph
   - image: mrcyjanek/goprod:core-linux
     env: COMBO=linux/amd64;linux/arm64;linux/386;linux/arm BINNAME=magnetgraph-desktop
   - image: mrcyjanek/goprod:core-windows
@@ -8,7 +10,6 @@ matrix:
   - image: mrcyjanek/goprod:core-android
     env: COMBO=android/amd64;android/386;android/arm;android/arm64;android/all BINNAME=magnetgraph
 script: 
-  - printenv
   - true; [[ "X$X" == "XX" ]] && goprod -combo="linux/arm64" -tags="captcha" -shouldpkg=true -binname="magnetgraph" -version="0.0.0" || true
   - true; [[ "X$X" == "X" ]] && goprod -combo="$COMBO" -shouldpkg=true -apkit=true -binname="$BINNAME" -version="0.0.0" -appurl="http://127.0.0.1:43132/" || true
   - cp build/deb/*.deb /apt/ || true
