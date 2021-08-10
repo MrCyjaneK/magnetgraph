@@ -1,31 +1,16 @@
-image: mrcyjanek/goprod:core
+image: mrcyjanek/goprod:core-linux
+env: X=X COMBO=linux/amd64;linux/arm64;linux/386;linux/arm
 matrix:
   - image: mrcyjanek/goprod:core-linux
-    script:
-    - goprod -combo="linux/amd64" -tags="captcha" -package=true -binname="magnetgraph" -version="0.0.0"
-    - goprod -combo="linux/386" -tags="captcha" -package=true -binname="magnetgraph" -version="0.0.0"
-    - goprod -combo="linux/arm" -tags="captcha" -package=true -binname="magnetgraph" -version="0.0.0"
-    - goprod -combo="linux/arm64" -tags="captcha" -package=true -binname="magnetgraph" -version="0.0.0"
-    - cp build/deb/*.deb /apt/
-    - cp build/bin/* /archive
-  - image: mrcyjanek/goprod:core-linux
-    script:
-    - goprod -combo="linux/amd64" -package=true -binname="magnetgraph-desktop" -version="0.0.0"
-    - goprod -combo="linux/386" -package=true -binname="magnetgraph-desktop" -version="0.0.0"
-    - goprod -combo="linux/arm" -package=true -binname="magnetgraph-desktop" -version="0.0.0"
-    - goprod -combo="linux/arm64" -package=true -binname="magnetgraph-desktop" -version="0.0.0"
-    - cp build/deb/*.deb /apt/
-    - cp build/bin/* /archive
+    env: COMBO=linux/amd64;linux/arm64;linux/386;linux/arm BINNAME=magnetgraph-desktop
   - image: mrcyjanek/goprod:core-windows
-    script:
-    - goprod -combo="windows/amd64" -package=true -binname="magnetgraph-desktop" -version="0.0.0"
-    - goprod -combo="windows/386" -package=true -binname="magnetgraph-desktop" -version="0.0.0"
-    - cp build/bin/*.exe /archive
+    env: COMBO=windows/amd64;windows/386 BINNAME=magnetgraph-desktop
   - image: mrcyjanek/goprod:core-android
-    script:
-    - goprod -combo="android/amd64" -apkit=true -binname="magnetgraph" -version="0.0.0" -appurl="http://127.0.0.1:43132/"
-    - goprod -combo="android/386" -apkit=true -binname="magnetgraph" -version="0.0.0" -appurl="http://127.0.0.1:43132/"
-    - goprod -combo="android/arm64" -apkit=true -binname="magnetgraph" -version="0.0.0" -appurl="http://127.0.0.1:43132/"
-    - goprod -combo="android/arm" -apkit=true -binname="magnetgraph" -version="0.0.0" -appurl="http://127.0.0.1:43132/"
-    - goprod -combo="android/all" -apkit=true -binname="magnetgraph" -version="0.0.0" -appurl="http://127.0.0.1:43132/"
-    - cp build/apk/* /archive
+    env: COMBO=android/amd64;android/386;android/arm;android/arm64;android/all BINNAME=magnetgraph
+script: 
+  - printenv
+  - true; [[ "X$X" == "XX" ]] && goprod -combo="linux/arm64" -tags="captcha" -shouldpkg=true -binname="magnetgraph" -version="0.0.0" || true
+  - true; [[ "X$X" == "X" ]] && goprod -combo="$COMBO" -shouldpkg=true -apkit=true -binname="$BINNAME" -version="0.0.0" -appurl="http://127.0.0.1:43132/" || true
+  - cp build/deb/*.deb /apt/ || true
+  - cp build/bin/* /archive || true
+  - cp build/apk/* /archive || true
