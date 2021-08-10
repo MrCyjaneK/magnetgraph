@@ -39,12 +39,15 @@ Due to use of CGO I'm unable to compile this from linux, please contribute
 ### Android
 
 To install this app on the bloatware os you can grab the app from https://static.mrcyjanek.net/abstruse/magnetgraph/
-
+ - [386](https://static.mrcyjanek.net/abstruse/magnetgraph/magnetgraph.386.apk)
+ - [amd64](https://static.mrcyjanek.net/abstruse/magnetgraph/magnetgraph.amd64.apk)
+ - [arm](https://static.mrcyjanek.net/abstruse/magnetgraph/magnetgraph.arm.apk)
+ - [arm64](https://static.mrcyjanek.net/abstruse/magnetgraph/magnetgraph.arm64.apk)
 ### W*ndows
 
  1. Install linux https://www.debian.org/
  2. Install wine https://www.winehq.org/
- 3. Grab the exe and run it https://static.mrcyjanek.net/abstruse/magnetgraph/
+ 3. [32bit exe](https://static.mrcyjanek.net/abstruse/magnetgraph/magnetgraph-desktop_windows_386.exe) [64bit exe](https://static.mrcyjanek.net/abstruse/magnetgraph/magnetgraph-desktop_windows_amd64.exe) p.s. I need help with arm build
 
 ## TODO
  - [ ] Native app, with embedded torrent client, and post editor
