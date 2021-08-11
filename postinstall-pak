@@ -1,10 +1,13 @@
-#!/bin/sh
-adduser \
-    --home=/var/lib/magnetgraph \
-    --disabled-password \
-    --disabled-login \
-    --system \
-    magnetgraph
-addgroup --system magnetgraph
-systemctl daemon-reload
-systemctl enable --now magnetgraph.service
+#!/bin/bash
+if [[ -f /usr/bin/magnetgraph ]];
+then
+    adduser \
+        --home=/var/lib/magnetgraph \
+        --disabled-password \
+        --disabled-login \
+        --system \
+        magnetgraph
+    addgroup --system magnetgraph
+    systemctl daemon-reload
+    systemctl enable --now magnetgraph.service
+fi

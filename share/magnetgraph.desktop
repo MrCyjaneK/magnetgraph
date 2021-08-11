@@ -2,7 +2,7 @@
 GenericName=Magnetgraph
 Name=Magnetgraph
 Exec=magnetgraph-desktop %U
-Icon=magnetgraph
+Icon=/usr/share/pixmaps/magnetgraph.png
 Type=Application
 Terminal=false
 Categories=Utility;
